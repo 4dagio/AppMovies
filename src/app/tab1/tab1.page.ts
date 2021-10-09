@@ -10,18 +10,21 @@ import { MoviesService } from '../services/movies.service';
 export class Tab1Page implements OnInit{
 
   peliculasNuevas: Pelicula[] = [];
-  
-  slideOpts = {
-    slidesPerView: 1.3,
-    freeMode: true
-  };
-
+  populares: Pelicula[] = [];
+ 
   constructor( private movieService: MoviesService ) {}
 
   ngOnInit(){
+    
     this.movieService.getFeature()
     .subscribe(resp => {
       this.peliculasNuevas = resp.results;
+    });
+
+    this.movieService.getPopulares()
+    .subscribe(resp => {
+      console.log('Populares', resp);
+      this.populares = resp.results;
     });
   }
 
